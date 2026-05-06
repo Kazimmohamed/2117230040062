@@ -1,38 +1,28 @@
 'use strict';
 
-// Validates log payloads and sends them to the external evaluation logging API.
+// Validates log input and sends it to the external logging API.
 const apiClient = require('./apiClient');
-const { VALID_STACKS } = require('./constants');
+const { STACKS, LEVELS, PACKAGES } = require('./constants');
 
 function isNonEmptyString(value) {
   return typeof value === 'string' && value.trim().length > 0;
 }
 
-function buildValidationError(message) {
-  const error = new Error(message);
-  error.name = 'LogValidationError';
-  return error;
-}
-
 function validateLogPayload(stack, level, packageName, message) {
-  if (!isNonEmptyString(stack)) {
-    throw buildValidationError('stack must be a non-empty string');
+  if (!STACKS.includes(stack)) {
+    throw new Error('Invalid stack value');
   }
 
-  if (!VALID_STACKS.includes(stack.trim())) {
-    throw buildValidationError('stack must be either "backend" or "frontend"');
+  if (!LEVELS.includes(level)) {
+    throw new Error('Invalid level value');
   }
 
-  if (!isNonEmptyString(level)) {
-    throw buildValidationError('level must be a non-empty string');
-  }
-
-  if (!isNonEmptyString(packageName)) {
-    throw buildValidationError('packageName must be a non-empty string');
+  if (!PACKAGES.includes(packageName)) {
+    throw new Error('Invalid package value');
   }
 
   if (!isNonEmptyString(message)) {
-    throw buildValidationError('message must be a non-empty string');
+    throw new Error('Invalid message value');
   }
 }
 
@@ -40,29 +30,19 @@ async function Log(stack, level, packageName, message) {
   try {
     validateLogPayload(stack, level, packageName, message);
 
-    const payload = {
+    const response = await apiClient.post('/logs', {
       stack: stack.trim(),
       level: level.trim(),
       package: packageName.trim(),
       message: message.trim(),
-    };
+    });
 
-    const response = await apiClient.post('', payload);
-
-    return {
-      success: true,
-      statusCode: response.status,
-      data: response.data,
-    };
+    return response.data;
   } catch (error) {
-    const statusCode = error.response ? error.response.status : null;
-    const responseData = error.response ? error.response.data : null;
-
     return {
       success: false,
-      statusCode,
-      error: error.message,
-      data: responseData,
+      message: error.message,
+      status: error.response ? error.response.status : 500,
     };
   }
 }

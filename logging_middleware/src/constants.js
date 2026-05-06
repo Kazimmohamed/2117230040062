@@ -1,17 +1,28 @@
 'use strict';
 
-// Centralizes immutable values used by the logging module.
-const LOGGING_API_URL = 'http://20.207.122.201/evaluation-service/logs';
+// Stores the only allowed values used by the logging middleware.
+const STACKS = Object.freeze(['backend', 'frontend']);
 
-const STACKS = Object.freeze({
-  BACKEND: 'backend',
-  FRONTEND: 'frontend',
-});
+const LEVELS = Object.freeze(['debug', 'info', 'warn', 'error', 'fatal']);
 
-const VALID_STACKS = Object.freeze(Object.values(STACKS));
+const PACKAGES = Object.freeze([
+  'cache',
+  'controller',
+  'cron_job',
+  'db',
+  'domain',
+  'handler',
+  'repository',
+  'route',
+  'service',
+  'auth',
+  'config',
+  'middleware',
+  'utils',
+]);
 
 module.exports = {
-  LOGGING_API_URL,
   STACKS,
-  VALID_STACKS,
+  LEVELS,
+  PACKAGES,
 };

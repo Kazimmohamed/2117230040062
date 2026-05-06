@@ -1,6 +1,6 @@
 'use strict';
 
-// Converts application errors into consistent HTTP responses and logs failures.
+// Logs request failures and returns a small standard JSON error response.
 const { Log, STACKS } = require('logging_middleware');
 
 async function errorHandler(err, req, res, next) {
@@ -8,8 +8,8 @@ async function errorHandler(err, req, res, next) {
     return next(err);
   }
 
-  const statusCode = Number(err.statusCode) || 500;
-  const message = err.message || 'Internal server error';
+  const statusCode = err.statusCode || 500;
+  const message = statusCode === 500 ? 'Internal server error' : err.message;
 
   await Log(
     STACKS.BACKEND,
@@ -20,7 +20,9 @@ async function errorHandler(err, req, res, next) {
 
   return res.status(statusCode).json({
     success: false,
-    message,
+    error: {
+      message,
+    },
   });
 }
 
