@@ -2,5 +2,12 @@
   "name": "vehicle_maintenance_scheduler",
   "version": "1.0.0",
   "private": true,
-  "main": "src/server.js"
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "logging_middleware": "file:../logging_middleware"
+  }
 }
