@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "main": "src/server.js",
-  "scripts": {
-    "start": "node src/server.js"
-  },
+ "scripts": {
+  "start": "node src/server.js",
+  "dev": "nodemon src/server.js"
+},
   "dependencies": {
-    "express": "^4.21.2",
+    "axios": "^1.16.0",
+    "express": "^4.22.1",
     "logging_middleware": "file:../logging_middleware"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
