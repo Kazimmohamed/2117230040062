@@ -6,8 +6,8 @@ const axios = require('axios');
 const apiClient = axios.create({
   baseURL: 'http://20.207.122.201/evaluation-service',
   headers: {
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJNYXBDbGFpbXMiOnsiYXVkIjoiaHR0cDovLzIwLjI0NC41Ni4xNDQvZXZhbHVhdGlvbi1zZXJ2aWNlIiwiZW1haWwiOiJrYXppbW1vaGFtZWQucy5hLjIwMjMuZWNlQHJpdGNoZW5uYWkuZWR1LmluIiwiZXhwIjoxNzc4MDQ5NzQ3LCJpYXQiOjE3NzgwNDg4NDcsImlzcyI6IkFmZm9yZCBNZWRpY2FsIFRlY2hub2xvZ2llcyBQcml2YXRlIExpbWl0ZWQiLCJqdGkiOiIyYzdhNDZlMy1kYmExLTQzMjQtYWQ5Yi04ZWE2MDE2ZTFmYTIiLCJsb2NhbGUiOiJlbi1JTiIsIm5hbWUiOiJzIGEga2F6aW0gbW9oYW1lZCIsInN1YiI6ImY1NGJmMTNkLWY1ZTEtNGZlYi1hNWJhLWFkNmNkYThjOTcyNSJ9LCJlbWFpbCI6ImthemltbW9oYW1lZC5zLmEuMjAyMy5lY2VAcml0Y2hlbm5haS5lZHUuaW4iLCJuYW1lIjoicyBhIGthemltIG1vaGFtZWQiLCJyb2xsTm8iOiIyMTE3MjMwMDQwMDYyIiwiYWNjZXNzQ29kZSI6IkJUQ0RxVCIsImNsaWVudElEIjoiZjU0YmYxM2QtZjVlMS00ZmViLWE1YmEtYWQ2Y2RhOGM5NzI1IiwiY2xpZW50U2VjcmV0IjoieGZkSHpWQ3ZYQXR6QlBzSiJ9.MdwRTcduOYKBO5uFNNzoDqjXvsxW3HQXb2FK_0m7C1M',
     'Content-Type': 'application/json',
-    Authorization: 'Bearer BTCDqT',
   },
 });
 
